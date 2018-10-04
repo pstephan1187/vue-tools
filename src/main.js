@@ -27,4 +27,7 @@ const VueTools = {
   }
 }
 
+export {
+  Form
+}
 export default VueTools
