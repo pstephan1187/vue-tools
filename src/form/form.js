@@ -82,6 +82,16 @@ class Form {
           for (let fieldID of Object.keys(this.fields)) {
             this.fields[fieldID].validate()
           }
+        },
+        // Run every dirty field against it's validation rules
+        validateAllDirty () {
+          for (let fieldID of Object.keys(this.fields)) {
+            let field = this.fields[fieldID]
+
+            if (field.dirty) {
+              field.validate()
+            }
+          }
         }
       },
       watch: {}
@@ -104,9 +114,9 @@ class Form {
         }
       }
 
-      vueOptions.watch[`fields.${field.id}.value`] = function () {
-        this.validateAll()
-      }
+      // vueOptions.watch[`fields.${field.id}.value`] = function () {
+      //   this.validateAll()
+      // }
     }
 
     let form = new Vue(vueOptions)
