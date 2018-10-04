@@ -75,7 +75,7 @@ class Form {
             return false;
           }
 
-          return this.fields[fieldId].hasErrors()
+          return this.fields[fieldId].hasErrors
         },
         // Get the first error for the given field
         firstError (fieldId) {

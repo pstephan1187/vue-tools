@@ -43,7 +43,7 @@ class Field {
       computed: {
         // Has the field passed all validation rules
         valid () {
-          return !this.hasErrors()
+          return !this.hasErrors
         },
 
         // Returns true if `required` is a validation rule
@@ -62,7 +62,12 @@ class Field {
           }
 
           return errors
-        }
+        },
+
+        // Returns true if there are any validation errors
+        hasErrors () {
+          return this.errorList.length > 0
+        },
       },
       methods: {
         // Remove all error messages. Essentially makes the field 'valid'
@@ -77,12 +82,8 @@ class Field {
           })
         },
 
-        // Returns true if there are any validation errors
-        hasErrors () {
-          return this.errorList.length > 0
-        },
-
-        // Runs all given validation rules against the field
+        // Runs all given validation rules against the field and stores
+        // error messages.
         validate () {
           this.clearErrors()
 
