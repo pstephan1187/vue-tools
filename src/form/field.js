@@ -41,9 +41,11 @@ class Field {
         form: null
       },
       computed: {
-        // Has the field passed all validation rules
+        // Has the field passed all validation rules, but does not store
+        // any error messages. Useful for checking validity without
+        // displaying errors
         valid () {
-          return !this.hasErrors
+          return this.checkValidationRules().length === 0
         },
 
         // Returns true if `required` is a validation rule
@@ -75,23 +77,16 @@ class Field {
           this.errorList = []
         },
 
-        // Add an error and it's cooresponding message
-        addError (rule, message) {
-          this.errorList.push({
-            rule, message
-          })
-        },
-
-        // Runs all given validation rules against the field and stores
-        // error messages.
-        validate () {
-          this.clearErrors()
+        // Runs validation rules against the field and returns any errors
+        checkValidationRules () {
+          let errors = []
 
           for (var rule of this.rules) {
             var func
             var args
 
             if (typeof rule === 'string') {
+              // if the rule has any arguments, parse them
               if (rule.indexOf(':') !== -1) {
                 var [rule, args] = rule.split(':')
                 args = args.split(',')
@@ -102,11 +97,28 @@ class Field {
               func = rule
             }
 
-            let passes = func(this.$data, args)
+            let message = func(this.$data, args)
 
-            if (passes !== true) {
-              this.addError(rule, passes)
+            if (message !== true) {
+              errors.push({
+                rule, message
+              })
             }
+          }
+
+          return errors
+        },
+
+        // Runs all given validation rules against the field and stores
+        // error messages. Useful for checking validity AND showing
+        // errors
+        validate () {
+          this.clearErrors()
+
+          let errors = this.checkValidationRules()
+
+          if (errors.length > 0) {
+            this.errorList = errors
           }
         }
       },
