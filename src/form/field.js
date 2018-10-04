@@ -112,8 +112,6 @@ class Field {
       watch: {
         value () {
           this.dirty = true
-
-          this.validate()
         }
       }
     }
