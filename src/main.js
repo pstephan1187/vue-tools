@@ -1,8 +1,30 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Form from './form/form.js'
 
-Vue.config.productionTip = false
+function init (Vue) {
+  if (!('$tools' in Vue.prototype)) {
+    Vue.prototype.$tools = {}
+  }
+}
 
-new Vue({
-  render: h => h(App)
-}).$mount('#app')
+const VueTools = {
+  install (Vue, options) {
+    this.form.install(Vue, options)
+  },
+
+  /*
+   * Usage:
+   * data: (vm) => ({
+   *  form: vm.$tools.form.create({
+   *    // ...
+   *  })
+   * })
+   */
+  form: {
+    install (Vue, options) {
+      init(Vue)
+      Vue.prototype.$tools.form = new Form(Vue)
+    }
+  }
+}
+
+export default VueTools

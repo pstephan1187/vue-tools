@@ -2,9 +2,10 @@
   "name": "vue-tools",
   "version": "0.1.0",
   "private": true,
+  "main": "src/main.js",
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "watch": "vue-cli-service build --target lib --mode development --watch src/main.js",
+    "build": "vue-cli-service build --target lib src/main.js",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit"
   },
