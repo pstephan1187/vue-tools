@@ -50,6 +50,14 @@ class Form {
           }
 
           return errors
+        },
+        // Returns key/value pairs for fields and their values
+        '$values': function () {
+          return Object.keys(this.fields).reduce((obj, fieldId) => {
+            obj[fieldId] = this.fields[fieldId].value
+
+            return obj
+          }, {})
         }
       },
       methods: {
