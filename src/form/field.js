@@ -33,6 +33,9 @@ class Field {
         // Any validation failures
         errorList: [],
 
+        // Has the value been changed?
+        dirty: false,
+
         // A reference back to the form object. Usefull for validating
         // against other fields
         form: null
@@ -41,6 +44,11 @@ class Field {
         // Has the field passed all validation rules
         valid () {
           return !this.hasErrors()
+        },
+
+        // Returns true if `required` is a validation rule
+        required () {
+          return this.rules.indexOf('required') !== -1
         },
 
         // Returns an object contain all error messages along with just
@@ -102,7 +110,11 @@ class Field {
         }
       },
       watch: {
-        value: 'validate'
+        value () {
+          this.dirty = true
+
+          this.validate()
+        }
       }
     }
 
