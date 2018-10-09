@@ -18,7 +18,7 @@ class Field {
         errorLabel: options.errorLabel || options.label || '',
 
         // The value of the field
-        value: options.value || null,
+        value: 'value' in options ? options.value : null,
 
         // Any validation rules this field should pass
         rules: options.rules || [],
