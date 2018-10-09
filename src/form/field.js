@@ -14,6 +14,9 @@ class Field {
         // The text label the user sees
         label: options.label || '',
 
+        // The text label the user sees in error messages
+        errorLabel: options.errorLabel || options.label || '',
+
         // The value of the field
         value: options.value || null,
 
