@@ -16,6 +16,8 @@ class Form {
 
     let vueOptions = {
       data: {
+        // An optional label to give the form
+        label: options.label || '',
         // An object of fields where each field is assigned
         // to a key represented by the field's ID
         fields: {}
