@@ -20,7 +20,10 @@ class Form {
         label: options.label || '',
         // An object of fields where each field is assigned
         // to a key represented by the field's ID
-        fields: {}
+        fields: {},
+        // Any additional data the developer want to pass with the field
+        // Can be used for things like classes, etc
+        userData: options.userData || null
       },
       computed: {
         // Returns true if all fields pass validation
