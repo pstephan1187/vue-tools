@@ -1,14 +1,9 @@
+import Vue from 'vue'
 import Field from './field.js'
 
 class Form {
-  // The Form and Field objects need a reference to the App's
-  // Vue instance, otherwise reactivity fails.
-  constructor (VueClass) {
-    this.VueClass = VueClass
-  }
-
-  create (options) {
-    let Vue = this.VueClass
+  static create (options) {
+    // let Vue = Form.$vueClass
 
     if (!('fields' in options)) {
       throw new Error('You must include an array of fields when creating a form.')
@@ -114,7 +109,7 @@ class Form {
     // Assign computed getters and setters for each field's value
     // Assign watchers to each field's value to rerun validation on change
     for (let i in options.fields) {
-      let field = Field.create(Vue, options.fields[i])
+      let field = Field.create(options.fields[i])
 
       vueOptions.data.fields[field.id] = field
 

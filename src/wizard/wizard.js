@@ -1,12 +1,8 @@
+import Vue from 'vue'
 import Step from './step.js'
 
 class Wizard {
-  constructor (VueClass) {
-    this.VueClass = VueClass
-  }
-
-  create (options) {
-    let Vue = this.VueClass
+  static create (options) {
 
     if (!('steps' in options)) {
       throw new Error('You must include an array of steps when creating a form.')
@@ -50,7 +46,7 @@ class Wizard {
     }
 
     for (var form of options.steps) {
-      vueOptions.data.steps.push(Step.create(Vue, form))
+      vueOptions.data.steps.push(Step.create(form))
     }
 
     let wizard = new Vue(vueOptions)

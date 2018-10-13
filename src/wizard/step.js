@@ -1,7 +1,7 @@
-import Form from '../form/form.js'
+import Vue from 'vue'
 
 class Step {
-  static create (Vue, form) {
+  static create (form) {
     if (!('$valid' in form)) {
       throw new Error('Wizard steps must be Vue Tools Form instances.')
     }

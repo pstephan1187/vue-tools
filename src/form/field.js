@@ -1,7 +1,8 @@
+import Vue from 'vue'
 import rules from '../rules.js'
 
 class Field {
-  static create (Vue, options) {
+  static create (options) {
     if (!('id' in options)) {
       throw new Error('Form fields must have an id')
     }
