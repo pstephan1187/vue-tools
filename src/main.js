@@ -1,10 +1,27 @@
-import Form from './form/form.js'
-import Field from './form/field.js'
-import Wizard from './wizard/wizard.js'
-import Step from './wizard/step.js'
+import { Form, installForm } from './form/form.js'
+import { Field, installField } from './form/field.js'
+import { Wizard, installWizard } from './wizard/wizard.js'
+import { Step, installStep } from './wizard/step.js'
 
 const VueTools = {
-  install (Vue, options) {}
+  install: function (Vue, options) {
+    this.form.install(Vue, options)
+    this.wizard.install(Vue, options)
+  },
+
+  form: {
+    install: function (Vue, options) {
+      installForm(Vue, options)
+      installField(Vue, options)
+    }
+  },
+
+  wizard: {
+    install: function (Vue, options) {
+      installWizard(Vue, options)
+      installStep(Vue, options)
+    }
+  }
 }
 
 export {
@@ -13,4 +30,5 @@ export {
   Wizard,
   Step
 }
+
 export default VueTools
