@@ -1,37 +1,44 @@
-import Vue from 'vue'
+import { Form } from '../form/form.js'
 
-class Step {
-  static create (form) {
-    if (!('$valid' in form)) {
-      throw new Error('Wizard steps must be Vue Tools Form instances.')
-    }
+let Step
 
-    let vueOptions = {
-      data: {
-        form: form,
-        wizard: null
+const installStep = function (Vue, options) {
+  Step = Vue.extend({
+    props: {
+      form: {
+        type: Form,
+        required: true
+      }
+    },
+    computed: {
+      label () {
+        return this.form.label
       },
-      computed: {
-        label () {
-          return this.form.label
-        },
-        isFirst () {
-          return this.wizard.steps[0] === this
-        },
-        valid () {
-          return this.form.$valid
-        },
-        isActive () {
-          return this.wizard.currentStep === this
-        },
-        isLast () {
-          return this.wizard.steps[this.wizard.steps.length - 1] === this
-        }
+      isFirst () {
+        return this.$wizard.steps[0] === this
+      },
+      valid () {
+        return this.form.$valid
+      },
+      isActive () {
+        return this.$wizard.currentStep === this
+      },
+      isLast () {
+        return this.$wizard.steps[this.$wizard.steps.length - 1] === this
       }
     }
+  })
 
-    return new Vue(vueOptions)
+  Step.prototype.$wizard = null
+
+  Step.create = function (options) {
+    return new Step({
+      propsData: options
+    })
   }
 }
 
-export default Step
+export {
+  installStep,
+  Step
+}
